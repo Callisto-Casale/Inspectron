@@ -16,6 +16,7 @@ def main(folder, autopep8=False):
             if file.endswith(".py"):
                 cmd = "autopep8 --in-place --aggressive --aggressive " + folder + "/" + file
                 process = subprocess.run(cmd, shell=True, text=True)
+                print(f"[{file}] - Applied autopep8")
 
     print("[INSPECTRON] Running pylint on all files in " + folder)
     for file in os.listdir(folder):
@@ -76,6 +77,5 @@ if __name__ == "__main__":
     folder = sys.argv[1]
     if ("-ap8" in sys.argv):
         main(folder, autopep8=True)
-
-    print(sys.argv)
-    main(folder)
+    else:
+        main(folder)
