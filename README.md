@@ -3,7 +3,7 @@ Inspectron applies PyLint to a given directory and generates a report for one to
 It uses a templates located in the outputs folder to generate the report. It only works for .py files
 
 ## Usage
-Clone this repo to your local machine.
+Clone this repo to your local machine. Navigate towards the directory you cloned it in,
 Simply run the next command in the terminal to run the project.
 
 ```
