@@ -11,8 +11,7 @@ python3 main.py {directory name}
 ```
 
 > [!TIP]
-> `python3 main.py {directory name} -ap8`
-> to apply autopep8 before checking with PyLint
+> Check out the config.json to change the configurations
 
 
 

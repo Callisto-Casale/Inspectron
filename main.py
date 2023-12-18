@@ -2,7 +2,12 @@ import os
 import subprocess
 import sys
 import datetime
+import time
 from bs4 import BeautifulSoup
+import json
+
+with open("config.json", 'r') as fp:
+    config = json.load(fp)
 
 
 def run_autopep8(folder):
@@ -67,12 +72,19 @@ def generate_html_report(folder):
     with open(full_path, 'w') as fp:
         fp.write(str(soup))
 
-    print("[INSPECTRON] Opening optimization report in browser")
-    os.system(os.path.join(os.getcwd(), full_path))
+    if (config["OPEN_FILE"]):
+        print("[INSPECTRON] Opening optimization report in browser")
+        os.system(os.path.join(os.getcwd(), full_path))
+
+    time.sleep(1)
+
+    if (config["DELETE_FILE_AFTER_OPEN"]):
+        print("[INSPECTRON] Deleting optimization report")
+        os.remove(full_path)
 
 
 def main(folder, autopep8=False):
-    os.system("cls")  # Consider platform-independent clearing
+    os.system("cls")
 
     if autopep8:
         run_autopep8(folder)
@@ -83,5 +95,5 @@ def main(folder, autopep8=False):
 
 if __name__ == "__main__":
     folder = sys.argv[1]
-    autopep8_flag = "-ap8" in sys.argv
-    main(folder, autopep8=autopep8_flag)
+
+    main(folder, autopep8=config["EXTRAS"]["AUTOPEP8"])

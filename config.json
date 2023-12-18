@@ -1,0 +1,7 @@
+{
+    "OPEN_FILE": true,
+    "DELETE_FILE_AFTER_OPEN": false,
+    "EXTRAS":{
+        "AUTOPEP8": true
+    }
+}
