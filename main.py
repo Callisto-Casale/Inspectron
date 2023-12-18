@@ -1,38 +1,36 @@
-# import os
-import subprocess
 import os
+import subprocess
 import sys
-import random
 import datetime
 from bs4 import BeautifulSoup
 
 
-def main(folder, autopep8=False):
-    os.system("cls")
-
-    if (autopep8):
-        print("[INSPECTRON] Running autopep8 on all files in " + folder)
-        for file in os.listdir(folder):
-            if file.endswith(".py"):
-                cmd = "autopep8 --in-place --aggressive --aggressive " + folder + "/" + file
-                process = subprocess.run(cmd, shell=True, text=True)
-                print(f"[{file}] - Applied autopep8")
-
-    print("[INSPECTRON] Running pylint on all files in " + folder)
+def run_autopep8(folder):
+    print("[INSPECTRON] Running autopep8 on all files in", folder)
     for file in os.listdir(folder):
         if file.endswith(".py"):
-            cmd = "pylint " + folder + "/" + file
+            cmd = f"autopep8 --in-place --aggressive --aggressive {folder}/{file}"
+            subprocess.run(cmd, shell=True, text=True)
+            print(f"[INSPECTRON] Applied autopep8 to {file}")
+
+
+def run_pylint(folder):
+    print("[INSPECTRON] Running pylint on all files in", folder)
+    for file in os.listdir(folder):
+        if file.endswith(".py"):
+            cmd = f"pylint {folder}/{file}"
             process = subprocess.run(
                 cmd, shell=True, text=True, capture_output=True)
-            output = process.stdout.split(
-                "\n")[-3].split("(")[0].split("at ")[-1]
-            print(f"[{file}] - {output}")
+            output_lines = process.stdout.splitlines()
+            error_info = output_lines[-3].split("(")[0].split("at ")[-1]
+            print(f"[INSPECTRON] Applied pylint to {file}")
 
+
+def generate_html_report(folder):
     path = "outputs"
     filename = datetime.datetime.now().strftime("%d-%m-%Y-%H-%M-%S") + ".html"
-    fullPath = path + "/" + filename
-
-    print(f"[INSPECTRON] Generating optimization report")
+    full_path = os.path.join(path, filename)
+    print("[INSPECTRON] Generating optimization report")
 
     with open("outputs/template.html", 'r') as fp:
         soup = BeautifulSoup(fp, 'html.parser')
@@ -41,10 +39,10 @@ def main(folder, autopep8=False):
 
     files = [file for file in os.listdir(folder) if file.endswith(".py")]
     for i, file in enumerate(files):
-        cmd = "pylint " + folder + "/" + file
+        cmd = f"pylint {folder}/{file}"
         process = subprocess.run(
             cmd, shell=True, text=True, capture_output=True)
-        output = process.stdout.split("\n")
+        output = process.stdout.splitlines()
         for j, line in enumerate(output):
             new_row = soup.new_tag("tr")
             new_cell_num = soup.new_tag("td")
@@ -66,16 +64,24 @@ def main(folder, autopep8=False):
             gap = soup.new_tag("tr", style="height: 50px;")
             tbody.append(gap)
 
-    with open(fullPath, 'w') as fp:
+    with open(full_path, 'w') as fp:
         fp.write(str(soup))
 
-    print(f"[INSPECTRON] Opening optimization report in browser")
-    os.system(os.getcwd() + "/" + fullPath)
+    print("[INSPECTRON] Opening optimization report in browser")
+    os.system(os.path.join(os.getcwd(), full_path))
+
+
+def main(folder, autopep8=False):
+    os.system("cls")  # Consider platform-independent clearing
+
+    if autopep8:
+        run_autopep8(folder)
+
+    run_pylint(folder)
+    generate_html_report(folder)
 
 
 if __name__ == "__main__":
     folder = sys.argv[1]
-    if ("-ap8" in sys.argv):
-        main(folder, autopep8=True)
-    else:
-        main(folder)
+    autopep8_flag = "-ap8" in sys.argv
+    main(folder, autopep8=autopep8_flag)
