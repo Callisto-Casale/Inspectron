@@ -9,6 +9,13 @@ Simply run the next command in the terminal to run the project.
 ```
 python3 main.py {directory name}
 ```
+
+> [!TIP]
+> `python3 main.py {directory name} -ap8`
+> to apply autopep8 before checking with PyLint
+
+
+
 ### Example output
 ```
 [INSPECTRON] Running pylint on all files in C:\Users\user\Coding\Python\Torment
