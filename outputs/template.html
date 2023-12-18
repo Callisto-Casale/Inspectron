@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+        }
+        .table-dark {
+            color: #d4d4d4;
+        }
+        .table-dark tbody tr:nth-child(odd) {
+            background-color: #2d2d30;
+        }
+        .table-dark tbody tr:nth-child(even) {
+            background-color: #1e1e1e;
+        }
+        .table-dark tbody tr td:first-child {
+            color: #569cd6; /* blue */
+        }
+        .table-dark tbody tr td:last-child {
+            color: #dcdcaa; /* yellow */
+        }
+    </style>
+    <style>
+        /* Hide the default checkbox */
+        .styled-checkbox {
+            position: absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+        }
+        
+        /* Create a new checkbox */
+        .styled-checkbox + label {
+            position: relative;
+            cursor: pointer;
+            padding: 10px;
+            display: block;
+            height: 25px;
+            width: 25px;
+        }
+        
+        .styled-checkbox + label:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+        }
+        
+        /* Style the checkbox when checked */
+        .styled-checkbox:checked + label:before {
+            background-color: #009688;
+            border-color: #009688;
+        }
+        
+        .styled-checkbox:checked + label:after {
+            content: "";
+            position: absolute;
+            left: 9px;
+            top: 5px;
+            height: 8px;
+            width: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+        </style>
+    <title>Optimization</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-light">Report</h2>
+                <table class="table table-dark table-striped">
+                    <!-- ... -->
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Output</th>
+                            <th scope="col">Fixed</th>
+                        </tr>
+                    </thead>
+                    <!-- ... -->
+                    <tbody id="report-output">
+                        <!-- Pylint output will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- ... -->
+<script>
+    function strikeThrough(checkbox) {
+        var row = checkbox.parentElement.parentElement;
+        var output = row.children[1];
+        if (checkbox.checked) {
+            output.style.textDecoration = "line-through";
+        } else {
+            output.style.textDecoration = "none";
+        }
+    }
+    </script>
+    <!-- ... -->
+</html>
