@@ -76,9 +76,9 @@ def generate_html_report(folder):
         print("[INSPECTRON] Opening optimization report in browser")
         os.system(os.path.join(os.getcwd(), full_path))
 
-    time.sleep(1)
 
     if (config["DELETE_FILE_AFTER_OPEN"]):
+        time.sleep(1)
         print("[INSPECTRON] Deleting optimization report")
         os.remove(full_path)
 
