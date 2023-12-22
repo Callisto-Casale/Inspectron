@@ -14,7 +14,6 @@ python3 main.py {directory name}
 > Check out the config.json to change the configurations
 
 
-
 ### Example output
 ```
 [INSPECTRON] Running pylint on all files in C:\Users\user\Coding\Python\Torment
@@ -40,4 +39,11 @@ and can make suggestions about how the code could be refactored.
 
 @ https://pypi.org/project/pylint/
 ```
+
+## Future features
+- Support for Javascript (ESLint)
+- Support for Java (Checkstyle)
+- Error handeling
+- Performance Metrics
+
 
