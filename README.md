@@ -15,6 +15,7 @@ python3 main.py {directory name}
 
 
 ### Example output
+
 ```
 [INSPECTRON] Running pylint on all files in C:\Users\user\Coding\Python\Torment
 [house.py] - 3.85/10 
@@ -40,10 +41,11 @@ and can make suggestions about how the code could be refactored.
 @ https://pypi.org/project/pylint/
 ```
 
+## Added features
+- ✅ Tests for pylint and HTML report generator
+
 ## Future features
 - Support for Javascript (ESLint)
 - Support for Java (Checkstyle)
 - Error handeling
 - Performance Metrics
-
-
